@@ -1,0 +1,79 @@
+package com.chainsys.air.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.chainsys.air.model.Passengers;
+import com.chainsys.air.util.ConnectionUtil;
+
+public class InsertPassengersDAO {
+	/**
+	 * This method is used to add the passengers details into the passengers table
+	 * 
+	 * @param passengers
+	 * @param loginId
+	 * @throws Exception
+	 */
+	public void addPassengers(Passengers passengers, int loginId) throws Exception {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,user_id) values(booking_id_seq.NEXTVAL,?,?,?)";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, passengers.getName());
+			preparedStatement.setString(2, passengers.getGender());
+			preparedStatement.setInt(3, loginId);
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, null);
+		}
+	}
+
+	public void addPassenger(List<Passengers> passengerList, int loginId,long flightId) throws Exception {
+		PreparedStatement preparedStatement = null;
+		Connection connection = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,user_id,flight_id) values(booking_id_seq.NEXTVAL,?,?,?,?)";
+			preparedStatement = connection.prepareStatement(sql);
+			for (Passengers passengers : passengerList) {
+				preparedStatement.setString(1, passengers.getName());
+				preparedStatement.setString(2, passengers.getGender());
+				preparedStatement.setInt(3, loginId);
+				preparedStatement.setLong(4, flightId);
+				preparedStatement.addBatch();
+			}
+			preparedStatement.executeBatch();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, null);
+		}
+	}
+	public void addPassengers(List<Passengers> passengerList, long flightId,int loginId) throws Exception {
+		PreparedStatement preparedStatement = null;
+		Connection connection = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,flight_id,bk_id) values(booking_id_seq.NEXTVAL,?,?,?,?)";
+			preparedStatement = connection.prepareStatement(sql);
+			for (Passengers passengers : passengerList) {
+				preparedStatement.setString(1, passengers.getName());
+				preparedStatement.setString(2, passengers.getGender());
+				preparedStatement.setInt(3, loginId);
+				preparedStatement.setLong(4, flightId);
+				preparedStatement.addBatch();
+			}
+			preparedStatement.executeBatch();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, null);
+		}
+	}
+}

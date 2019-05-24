@@ -1,0 +1,104 @@
+package com.chainsys.air.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.chainsys.air.model.FlightDetails;
+import com.chainsys.air.util.ConnectionUtil;
+
+public class CheckingDAO {
+	/**
+	 * This method is used to check whether the Flight Id is present in the flight
+	 * details table or not
+	 * 
+	 * @param flightDetails
+	 * @return
+	 * @throws Exception
+	 */
+	public Boolean flightIdCheck(FlightDetails flightDetails) throws Exception {
+		Boolean isFound = false;
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "select flg_id from flight_details where flg_id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setLong(1, flightDetails.getFlightId());
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			isFound = true;
+		}
+		return isFound;
+	}
+
+	/**
+	 * This method is used to check whether source and destination are same or not
+	 * @param source
+	 * @param destination
+	 * @return
+	 * @throws Exception
+	 */
+	public Boolean journeyEqual(String source, String destination) throws Exception {
+		Boolean isFound = true;
+		if (source == destination) {
+			isFound = false;
+		}
+		return isFound;
+	}
+
+	/**
+	 * This method is used to check whether the booking id is present in the travel
+	 * passengers table or not
+	 * 
+	 * @param bookingId
+	 * @return
+	 * @throws Exception
+	 */
+	public Boolean checkBookingId(int bookingId) throws Exception {
+		Boolean isFound = false;
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "select user_id from travel_passengers where user_id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setInt(1, bookingId);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			isFound = true;
+		}
+		return isFound;
+
+	}
+
+	/**
+	 * This method is used to check the available tickets in flight details table
+	 * using flight id
+	 * 
+	 * @param totalPassengers
+	 * @param flightId
+	 * @return
+	 * @throws Exception
+	 */
+	public Boolean flightSeatsCheck(int totalPassengers, long flightId) throws Exception {
+		Boolean isFound = false;
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "select flg_avaliable_ticket from flight_details where flg_id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setLong(1, flightId);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		int capacity = 0;
+		while (resultSet.next()) {
+			capacity = resultSet.getInt("flg_avaliable_ticket");
+		}
+		if (capacity > totalPassengers) {
+			isFound = true;
+		}
+		return isFound;
+	}
+
+	public Boolean idFind(int bookId) throws Exception{
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		Boolean isFind=false;
+		String sql="select login_id from login where login_id=?";
+		preparedStatement.setInt(1, bookId);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if(ResultSet)
+	}
+}

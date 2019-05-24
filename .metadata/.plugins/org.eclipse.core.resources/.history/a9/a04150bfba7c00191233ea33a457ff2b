@@ -1,0 +1,51 @@
+package com.chainsys.air.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.chainsys.air.airlineservice.FlightService;
+
+@WebServlet("/CancelBookingServlet")
+public class CancelBookingServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public CancelBookingServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	@SuppressWarnings("static-access")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		//int bookingId = (int) session.getAttribute("TicketBookingId");
+		int bookingId=(int) session.getAttribute("");
+		System.out.println("BookingID" + bookingId);
+		FlightService flightService = new FlightService();
+		Boolean isFound = false;
+		try {
+			isFound = flightService.searchBookingId(bookingId);
+			if (isFound) {
+				flightService.ticketCancel(bookingId);
+				RequestDispatcher rd = request.getRequestDispatcher("cancelsuccess.jsp");
+				rd.forward(request, response);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("useridmiss.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

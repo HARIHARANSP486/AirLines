@@ -1,0 +1,92 @@
+package com.chainsys.air.model;
+
+import java.time.LocalDate;
+
+/**
+ * flight details class
+ * @author hari2124
+ *
+ */
+public class BookFlight {
+	private long bookId;
+	private LocalDate travelDate;
+	private String sourceTravel;
+	private String destinationTravel;
+	private int travelPassengers;
+	public long getBookId() {
+		return bookId;
+	}
+	public void setBookId(long bookId) {
+		this.bookId = bookId;
+	}
+	public LocalDate getTravelDate() {
+		return travelDate;
+	}
+	public void setTravelDate(LocalDate travelDate) {
+		this.travelDate = travelDate;
+	}
+	public String getSourceTravel() {
+		return sourceTravel;
+	}
+	public void setSourceTravel(String sourceTravel) {
+		this.sourceTravel = sourceTravel;
+	}
+	public String getDestinationTravel() {
+		return destinationTravel;
+	}
+	public void setDestinationTravel(String destinationTravel) {
+		this.destinationTravel = destinationTravel;
+	}
+	public int getTravelPassengers() {
+		return travelPassengers;
+	}
+	public void setTravelPassengers(int travelPassengers) {
+		this.travelPassengers = travelPassengers;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (bookId ^ (bookId >>> 32));
+		result = prime * result + ((destinationTravel == null) ? 0 : destinationTravel.hashCode());
+		result = prime * result + ((sourceTravel == null) ? 0 : sourceTravel.hashCode());
+		result = prime * result + ((travelDate == null) ? 0 : travelDate.hashCode());
+		result = prime * result + travelPassengers;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BookFlight other = (BookFlight) obj;
+		if (bookId != other.bookId)
+			return false;
+		if (destinationTravel == null) {
+			if (other.destinationTravel != null)
+				return false;
+		} else if (!destinationTravel.equals(other.destinationTravel))
+			return false;
+		if (sourceTravel == null) {
+			if (other.sourceTravel != null)
+				return false;
+		} else if (!sourceTravel.equals(other.sourceTravel))
+			return false;
+		if (travelDate == null) {
+			if (other.travelDate != null)
+				return false;
+		} else if (!travelDate.equals(other.travelDate))
+			return false;
+		if (travelPassengers != other.travelPassengers)
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "BookFlight [bookId=" + bookId + ", travelDate=" + travelDate + ", sourceTravel=" + sourceTravel
+				+ ", destinationTravel=" + destinationTravel + ", travelPassengers=" + travelPassengers + "]";
+	}
+}

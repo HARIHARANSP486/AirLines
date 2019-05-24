@@ -1,0 +1,55 @@
+package com.chainsys.air.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.chainsys.air.model.Passengers;
+import com.chainsys.air.util.ConnectionUtil;
+
+public class CanelTicketDAO {
+
+	// static final Logger log = Logger.getLogger(CanelTicketDAO.class);
+	/**
+	 * This method is used to get the passengers details of canceling the ticket
+	 * using booking id
+	 * 
+	 * @param loginId
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Passengers> cancelProcess(int loginId) throws Exception {
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "select pass_name,pass_gender from travel_passengers where user_id=?";
+		// log.debug("query" + sql);
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setLong(1, loginId);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		ArrayList<Passengers> passengersList = new ArrayList<>();
+		Passengers listPassengers = null;
+		while (resultSet.next()) {
+			listPassengers = new Passengers();
+			listPassengers.setName(resultSet.getString("pass_name"));
+			listPassengers.setGender(resultSet.getString("pass_gender"));
+			passengersList.add(listPassengers);
+		}
+		ConnectionUtil.close(connection, preparedStatement, resultSet);
+		return passengersList;
+	}
+
+	/**
+	 * This method is used to cancel the ticket using bookingId
+	 * 
+	 * @param bookingId
+	 * @throws Exception
+	 */
+	public void passengerDelete(int bookingId) throws Exception {
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "delete login_id from login where login_id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setInt(1, bookingId);
+		preparedStatement.executeQuery();
+		preparedStatement.executeUpdate();
+	}
+}

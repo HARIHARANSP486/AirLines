@@ -1,0 +1,52 @@
+package com.chainsys.air.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.chainsys.air.airlineservice.CheckFlightId;
+import com.chainsys.air.model.FlightDetails;
+
+@WebServlet("/FlightIdServlet")
+public class FlightIdServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public FlightIdServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Long flightId = Long.parseLong(request.getParameter("flightnumber"));
+		// Long flightId = Long.parseLong(request.getParameter("flightId"));
+		FlightDetails flightDetails = new FlightDetails();
+		flightDetails.setFlightId(flightId);
+		session.setAttribute("FlightID", flightId);
+		// CheckFlightId checkFlightId = new CheckFlightId();
+		// Boolean isFound = false;
+		// try {
+		// isFound = checkFlightId.checkId(flightDetails);
+		// if (isFound) {
+		RequestDispatcher rd = request.getRequestDispatcher("passengersnumber.jsp");
+		rd.forward(request, response);
+		// } else {
+		// request.setAttribute("ERROR", "ENTER VALID FLIGHTID");
+		// RequestDispatcher rd = request.getRequestDispatcher("next.jsp");
+		// rd.forward(request, response);
+		// }
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+	}
+}

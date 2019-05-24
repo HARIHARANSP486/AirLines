@@ -1,0 +1,42 @@
+package com.chainsys.air.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public LoginServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String userName = request.getParameter("email");
+		String password = request.getParameter("password");
+		System.out.println(userName + " " + password);
+		boolean success;
+		try {
+			success = true;// Authentication.isLogin(userName,password);
+			if (success) {
+				RequestDispatcher rs = request.getRequestDispatcher("menupage.jsp");
+				rs.forward(request, response);
+			} else {
+				RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+				rs.forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

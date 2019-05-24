@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.chainsys.external.bank&apos; to &apos;Airline/src&apos;&#x0D;&#x0A;- Original project: &apos;PaymentModule&apos;&#x0D;&#x0A;- Destination element: &apos;Airline/src&apos;&#x0D;&#x0A;- Original element: &apos;PaymentModule/src/com.chainsys.external.bank&apos;" description="Copy package" destination="=Airline/src" element1="/src&lt;com.chainsys.external.bank" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1558517549115" version="1.0"/>
+</session>
