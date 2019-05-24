@@ -30,7 +30,7 @@ public class FindAllDAO {
 				+ "flg_arrival_time,flg_avaliable_ticket,flg_adult_ticket,flg_children_ticket,flg_baby_ticket from flight_details where "
 				+ "flg_source=? and flg_destination=? and flg_journey_date=?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		log.debug("query"+sql);
+		log.debug("FindAllDAO :: searchFlights :: journey"+journey);
 		preparedStatement.setString(1, journey.getSource());
 		preparedStatement.setString(2, journey.getDestination());
 		preparedStatement.setDate(3, Date.valueOf(journey.getJourneyDate()));
@@ -68,7 +68,7 @@ public class FindAllDAO {
 	public ArrayList<Passengers> getPassenger(int bookid) throws Exception {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select pass_name,pass_gender from travel_passengers where user_id=?";
-		log.debug("query"+sql);
+		log.debug("FindAllDAO :: getPassenger :: bookid"+bookid);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, bookid);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,7 +94,7 @@ public class FindAllDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select flg_name,flg_source,flg_destination,"
 				+ "flg_journey_date from flight_details where flg_id IN(select flight_id from travel_passengers where user_id=?)";
-		log.debug("query"+sql);
+		log.debug("FindAllDAO :: checkCancelStatus :: bookid"+bookid);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, bookid);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -128,7 +128,7 @@ public class FindAllDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select flg_name,flg_source,flg_destination,"
 				+ "flg_journey_date from flight_details where flg_id IN(select flight_id from travel_passengers where user_id=?)";
-		log.debug("query"+sql);
+		log.debug("FindAllDAO :: checkStatus :: bookid"+bookid);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, bookid);
 		ResultSet resultSet = preparedStatement.executeQuery();

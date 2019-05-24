@@ -22,7 +22,7 @@ public class AmountDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		String sql = "select flg_adult_ticket from flight_details where flg_id=?";
-		log.debug("query"+sql);
+		log.debug("AmountDAO :: adultAmount :: flightDetails"+flightDetails);
 		preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightDetails.getFlightId());
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -46,7 +46,7 @@ public class AmountDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		String sql = "select flg_children_ticket from flight_details where flg_id=?";
-		log.debug("query"+sql);
+		log.debug("AmountDAO :: childAmount :: flightDetails"+flightDetails);
 		preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightDetails.getFlightId());
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +69,7 @@ public class AmountDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		String sql = "select flg_baby_ticket from flight_details where flg_id=?";
-		log.debug("query"+sql);
+		log.debug("AmountDAO :: babyAmount :: flightDetails"+flightDetails);
 		preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightDetails.getFlightId());
 		ResultSet resultSet = preparedStatement.executeQuery();

@@ -26,7 +26,7 @@ public class InsertPassengersDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,user_id) values(booking_id_seq.NEXTVAL,?,?,?)";
-			log.debug("query" + sql);
+			log.debug("InsertPassengersDAO :: addPassengers :: bookid"+passengers);
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, passengers.getName());
 			preparedStatement.setString(2, passengers.getGender());
@@ -54,7 +54,7 @@ public class InsertPassengersDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,user_id,flight_id) values(booking_id_seq.NEXTVAL,?,?,?,?)";
-			log.debug("query" + sql);
+			log.debug("InsertPassengersDAO :: addPassenger :: passengerList"+passengerList);
 			preparedStatement = connection.prepareStatement(sql);
 			for (Passengers passengers : passengerList) {
 				preparedStatement.setString(1, passengers.getName());
@@ -86,7 +86,7 @@ public class InsertPassengersDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 			String sql = "insert into travel_passengers(book_id,pass_name,pass_gender,flight_id,user_id) values(booking_id_seq.NEXTVAL,?,?,?,?)";
-			log.debug("query" + sql);
+			log.debug("InsertPassengersDAO :: addPassengers :: passengerList"+passengerList);
 			preparedStatement = connection.prepareStatement(sql);
 			for (Passengers passengers : passengerList) {
 				preparedStatement.setString(1, passengers.getName());

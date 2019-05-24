@@ -3,10 +3,13 @@ package com.chainsys.air.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import com.chainsys.air.Exception.PassengerException;
 import com.chainsys.air.model.FlightDetails;
+import com.chainsys.air.util.AirlinesException;
 import com.chainsys.air.util.ConnectionUtil;
 
 public class CheckingDAO {
@@ -23,7 +26,7 @@ public class CheckingDAO {
 		Boolean isFound = false;
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select flg_id from flight_details where flg_id=?";
-		log.debug("query" + sql);
+		log.debug("CheckingDAO :: flightIdCheck :: flightDetails"+flightDetails);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightDetails.getFlightId());
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,7 +63,7 @@ public class CheckingDAO {
 		Boolean isFound = false;
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select login_id from login where login_id=?";
-		log.debug("query" + sql);
+		log.debug("CheckingDAO :: checkBookingId :: bookingId"+bookingId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, bookingId);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -80,11 +83,12 @@ public class CheckingDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public Boolean flightSeatsCheck(int totalPassengers, long flightId) throws Exception {
+	public Boolean flightSeatsCheck(int totalPassengers, long flightId) throws PassengerException {
 		Boolean isFound = false;
+		try {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select flg_avaliable_ticket from flight_details where flg_id=?";
-		log.debug("query" + sql);
+		log.debug("CheckingDAO :: flightSeatsCheck :: bookingId"+totalPassengers);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightId);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,6 +98,11 @@ public class CheckingDAO {
 		}
 		if (capacity > totalPassengers) {
 			isFound = true;
+		}
+		}catch(SQLException e)
+		{
+			log.error("Exception caught:"+e.getMessage());
+			throw new PassengerException(AirlinesException.PASSENGERS_MISTAKE);
 		}
 		return isFound;
 	}
@@ -107,7 +116,7 @@ public class CheckingDAO {
 	public Boolean idFind(int bookId) throws Exception{
 		Connection connection = ConnectionUtil.getConnection();
 		String sql="select login_id from login where login_id=?";
-		log.debug("query" + sql);
+		log.debug("CheckingDAO :: idFind :: bookId"+bookId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		Boolean isFind=false;
 		preparedStatement.setInt(1, bookId);

@@ -23,7 +23,7 @@ public class JourneyDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 			String sql = "update flight_details set flg_avaliable_ticket=? where flg_id=?";
-			log.debug("query" + sql);
+			log.debug("JourneyDAO :: seatsUpdate :: updateCount"+updateCount);
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, updateCount);
 			preparedStatement.setLong(2, flightId);
@@ -48,7 +48,7 @@ public class JourneyDAO {
 		PreparedStatement preparedStatement = null;
 		connection = ConnectionUtil.getConnection();
 		String sql = "select flg_avaliable_ticket from flight_details where flg_id=?";
-		log.debug("query" + sql);
+		log.debug("JourneyDAO :: totalSeats :: flightId"+flightId);
 		preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, flightId);
 		int totalTicket = 0;

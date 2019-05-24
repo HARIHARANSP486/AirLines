@@ -197,3 +197,6 @@ form {
 		<div class="hero-content">
 			<a href="index.jsp" class="btn btn-info" role="button">LOGOUT</a>
 		</div>
+		</form>
+		</body>
+		</html>

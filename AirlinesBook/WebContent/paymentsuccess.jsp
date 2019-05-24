@@ -111,7 +111,6 @@ form {
 			Ticket</a> <a class="active-non" href="support.jsp">Support Details</a>
 	
 		</div>
-<b>success</b>
 <div>
 	<div><b>Account Holder Name:<b> </div><%out.print( request.getParameter("acc_holder_name")); %>
 	</div>

@@ -207,7 +207,7 @@ form {
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<button type="submit" class="btn btn-info" style="width: 120px">
-							<b>SUBMIT</b>
+							<b>CANCEL</b>
 						</button> <br>
 					</td>
 				</tr>

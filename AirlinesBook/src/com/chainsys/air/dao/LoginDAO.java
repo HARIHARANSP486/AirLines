@@ -22,7 +22,7 @@ public class LoginDAO {
 		Boolean isFound = false;
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select user_name,password from login where user_name=? and password=?";
-		log.debug("query"+sql);
+		log.debug("LoginDAO :: login :: userName"+userName);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setString(1, userName);
 		preparedStatement.setString(2, password);
@@ -45,7 +45,7 @@ public class LoginDAO {
 	public int id(String userName, String password) throws Exception {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select login_id from login where user_name=? and password=?";
-		log.debug("query"+sql);
+		log.debug("LoginDAO :: id :: userName"+userName);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setString(1, userName);
 		preparedStatement.setString(2, password);
@@ -64,7 +64,7 @@ public class LoginDAO {
 	public void createBookId(int loginId) throws Exception{
 		Connection connection = ConnectionUtil.getConnection();
 		String sql="insert into bookid(booking_id) values(new_seq.nextval,?) ";
-		log.debug("query"+sql);
+		log.debug("LoginDAO :: createBookId :: loginId"+loginId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, loginId);
 		preparedStatement.executeUpdate();
@@ -78,6 +78,7 @@ public class LoginDAO {
 	public int getBkId(int LoginId) throws Exception{
 		Connection connection = ConnectionUtil.getConnection();
 		String sql="select booking_id from bookid where loginID = ?";
+		log.debug("LoginDAO :: getBkId :: LoginId"+LoginId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1,LoginId);
 		ResultSet resultSet=preparedStatement.executeQuery();
@@ -93,7 +94,7 @@ public class LoginDAO {
 	public int getLogin(String userName, String password) throws Exception {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = "select login_id from login where user_name=? and password=?";
-		log.debug("query"+sql);
+		log.debug("LoginDAO :: getLogin :: userName"+userName);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setString(1, userName);
 		preparedStatement.setString(2, password);

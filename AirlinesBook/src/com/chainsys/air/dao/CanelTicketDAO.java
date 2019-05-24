@@ -24,8 +24,8 @@ public class CanelTicketDAO {
 	 */
 	public ArrayList<Passengers> cancelProcess(int loginId) throws Exception {
 		Connection connection = ConnectionUtil.getConnection();
-		String sql = "select pass_name,pass_gender from travel_passengers where user_id=?";
-		log.debug("query" + sql);
+		String sql = "select pass_name,cancelProcess from travel_passengers where user_id=?";
+		log.debug("CanelTicketDAO :: babyAmount :: loginId"+loginId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, loginId);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -50,7 +50,7 @@ public class CanelTicketDAO {
 	public void passengerDelete(int bookingId) throws Exception {
 		Connection connection = ConnectionUtil.getConnection();
 		String sql = " delete from travel_passengers where user_id=?";
-		log.debug("query" + sql);
+		log.debug("CanelTicketDAO :: passengerDelete :: bookingId"+bookingId);
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, bookingId);
 		preparedStatement.executeUpdate();
